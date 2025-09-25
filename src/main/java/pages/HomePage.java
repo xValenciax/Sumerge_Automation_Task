@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,20 +12,28 @@ import java.util.regex.Pattern;
 public class HomePage {
     By CitySelector = By.id(":rh:");
     By FirstSearchResult = By.cssSelector("#autocomplete-result-0 > div");
-    By CheckInBtn = By.xpath("/html/body/div[3]/div[2]/div/form/div/div[2]/div/button");
     By CalendarBtn = By.id("calendar-searchboxdatepicker-tab-trigger");
     By MonthName = By.xpath("/html/body/div[3]/div[2]/div/form/div/div[2]/div/div/div/nav/div[2]/div/div[1]/div/div[1]/h3");
-    By NextMonthBtn = By.xpath("/html/body/div[3]/div[2]/div/form/div/div[2]/div/div/div/nav/div[2]/div/div[1]/button");
-    //    By DaysTable = By.xpath("/html/body/div[3]/div[2]/div/form/div/div[2]/div/div/div/nav/div[2]/div/div[1]/div/div[1]/table");
+    By NextMonthBtn = By.cssSelector("#calendar-searchboxdatepicker > div > div.a2142b454f.fb6f2a3ebc > button");
     By CheckInDay;
     By CheckOutDay;
     By SearchBtn = By.cssSelector("button[type=submit]");
+    By RandomPopUp = By.xpath("/html/body/div[32]/div");
+    By ClosePopUpBtn = By.xpath("/html/body/div[3]/div[2]/div/form/div/div[2]/div/div/div/nav/div[2]/div/div[1]/button");
     WebDriverWait wait;
     private WebDriver driver;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    }
+
+    public void closePopUp() {
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(ClosePopUpBtn)).click();
+        } catch (TimeoutException e) {
+            System.out.println("No popup appeared within 5 seconds.");
+        }
     }
 
     public void selectCity(String city) {
@@ -39,11 +48,12 @@ public class HomePage {
         driver.findElement(CalendarBtn).click();
     }
 
-    public void selectDate(String year, String month, String checkInDay, String checkOutDay) {
+    public void selectDate(int year, int month, int checkInDay, int checkOutDay) {
         driver.findElement(NextMonthBtn).click();
 
-        CheckInDay = By.cssSelector("span[data-date='" + year + "-" + month + "-" + checkInDay + "']");
-        CheckOutDay = By.cssSelector("span[data-date='" + year + "-" + month + "-" + checkOutDay + "']");
+        CheckInDay = By.cssSelector("span[data-date='" + String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.format("%02d", checkInDay) + "']");
+        CheckOutDay = By.cssSelector("span[data-date='" + String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.format("%02d", checkOutDay) + "']");
+
         driver.findElement(CheckInDay).click();
         driver.findElement(CheckOutDay).click();
     }
