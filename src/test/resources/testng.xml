@@ -5,6 +5,7 @@
             <class name="tests.HomeTests"/>
             <class name="tests.SearchResultsTest"/>
             <class name="tests.ReservationTests"/>
+            <class name="tests.ConfirmationTests"/>
         </classes>
     </test>
 </suite>

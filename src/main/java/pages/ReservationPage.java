@@ -63,7 +63,7 @@ public class ReservationPage {
 
     public void submitReservation() {
         List<WebElement> SubmitBtns = driver.findElements(SubmitBtn);
-        WebElement reserveBtn = SubmitBtns.getFirst();
+        WebElement reserveBtn = SubmitBtns.getLast();
         reserveBtn.click();
     }
 }
