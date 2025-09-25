@@ -6,25 +6,25 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import utils.ConfigReader;
 
 import java.time.Duration;
 
 public class BaseTest {
 
-    protected WebDriver driver;
+    protected static WebDriver driver;
     protected WebDriverWait wait;
 
-    @BeforeMethod
+    @BeforeSuite
     public void setUp() {
         String browser = ConfigReader.get("browser");
         String baseURL = ConfigReader.get("baseUrl");
         boolean headless = Boolean.parseBoolean(ConfigReader.get("headless"));
         int implicitWait = Integer.parseInt(ConfigReader.get("implicitWait"));
         int explicitWait = Integer.parseInt(ConfigReader.get("explicitWait"));
-        
+
         wait = new WebDriverWait(driver, Duration.ofSeconds(explicitWait));
 
         // Initialize WebDriver
@@ -54,7 +54,7 @@ public class BaseTest {
 
     }
 
-    @AfterMethod
+    @AfterSuite
     public void tearDown() {
         if (driver != null) {
             driver.quit();
