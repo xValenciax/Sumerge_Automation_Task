@@ -19,7 +19,8 @@ public class ReservationPage {
     By SubmitBtn = By.cssSelector("button[type='submit']");
     By CheckIn = By.xpath("//*[@id=\"hp_availability_style_changes\"]/div[3]/div/form/div/div[1]/div/div/button[1]/span");
     By CheckOut = By.xpath("//*[@id=\"hp_availability_style_changes\"]/div[3]/div/form/div/div[1]/div/div/button[2]/span");
-    JavascriptExecutor js;
+
+    private JavascriptExecutor js;
     private WebDriverWait wait;
     private WebDriver driver;
 

@@ -32,11 +32,11 @@ public class ReservationTests extends BaseTest {
         Assert.assertEquals(formattedCheckOutDate, ReservationDate[1]);
     }
 
-    @Test(priority = 2)
-    public void TestRoomReservation() {
+    @Test(priority = 2, dataProvider = "reservationData", dataProviderClass = TestDataProvider.class)
+    public void TestRoomReservation(String Bed, String Amount) {
         ReservationPage reservationPage = new ReservationPage(driver);
-        reservationPage.selectBedType("Queen");
-        reservationPage.selectRoomAmount("1");
+        reservationPage.selectBedType(Bed);
+        reservationPage.selectRoomAmount(Amount.replace(".0", ""));
         reservationPage.submitReservation();
     }
 }

@@ -17,16 +17,17 @@ public class SearchResultsPage {
     By LoadMoreBtn = By.xpath("//button[@type='button']//span[text()='Load more results']");
     By SeeAvailabilityBtn = By.cssSelector("a[data-testid='availability-cta-btn']");
 
+    private JavascriptExecutor js;
     private WebDriverWait wait;
     private WebDriver driver;
 
     public SearchResultsPage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        js = (JavascriptExecutor) driver;
     }
 
     public void FindAndBookHotel(String targetedHotel) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
         wait.until(ExpectedConditions.presenceOfElementLocated(SearchResultCount));
 
         boolean hotelFound = false;

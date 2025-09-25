@@ -28,15 +28,6 @@ public class HomePage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
-//    public void closePopUp() {
-//        try {
-//            WebDriverWait PopUpwait = new WebDriverWait(driver, Duration.ofSeconds(2));
-//            PopUpwait.until(ExpectedConditions.visibilityOfElementLocated(ClosePopUpBtn)).click();
-//        } catch (TimeoutException e) {
-//            System.out.println("No popup appeared within 5 seconds.");
-//        }
-//    }
-
     public void selectCity(String city) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(CitySelector)).sendKeys(city);
 
