@@ -3,9 +3,11 @@ package base;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.testng.annotations.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import utils.ConfigReader;
 
 import java.time.Duration;
@@ -13,6 +15,7 @@ import java.time.Duration;
 public class BaseTest {
 
     protected WebDriver driver;
+    protected WebDriverWait wait;
 
     @BeforeMethod
     public void setUp() {
@@ -20,6 +23,9 @@ public class BaseTest {
         String baseURL = ConfigReader.get("baseUrl");
         boolean headless = Boolean.parseBoolean(ConfigReader.get("headless"));
         int implicitWait = Integer.parseInt(ConfigReader.get("implicitWait"));
+        int explicitWait = Integer.parseInt(ConfigReader.get("explicitWait"));
+        
+        wait = new WebDriverWait(driver, Duration.ofSeconds(explicitWait));
 
         // Initialize WebDriver
         switch (browser.toLowerCase()) {
@@ -45,6 +51,7 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get(baseURL);
+
     }
 
     @AfterMethod

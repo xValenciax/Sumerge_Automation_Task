@@ -6,7 +6,6 @@ import java.util.Properties;
 
 public class ConfigReader {
 
-    private static ConfigReader instance = null;
     private static Properties properties;
 
     public static Properties getProperties() {
@@ -23,6 +22,6 @@ public class ConfigReader {
     }
 
     public static String get(String key) {
-        return properties.getProperty(key);
+        return getProperties().getProperty(key);
     }
 }
