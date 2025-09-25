@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,9 +17,10 @@ public class HomePage {
     By CheckInDay;
     By CheckOutDay;
     By SearchBtn = By.cssSelector("button[type=submit]");
-    By RandomPopUp = By.xpath("/html/body/div[32]/div");
-    By ClosePopUpBtn = By.xpath("/html/body/div[3]/div[2]/div/form/div/div[2]/div/div/div/nav/div[2]/div/div[1]/button");
-    WebDriverWait wait;
+    By SearchResultCount = By.xpath("/html/body/div[4]/div/div/div/div[2]/div[3]/div[2]/div[1]/h1");
+
+
+    private WebDriverWait wait;
     private WebDriver driver;
 
     public HomePage(WebDriver driver) {
@@ -28,13 +28,14 @@ public class HomePage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
-    public void closePopUp() {
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(ClosePopUpBtn)).click();
-        } catch (TimeoutException e) {
-            System.out.println("No popup appeared within 5 seconds.");
-        }
-    }
+//    public void closePopUp() {
+//        try {
+//            WebDriverWait PopUpwait = new WebDriverWait(driver, Duration.ofSeconds(2));
+//            PopUpwait.until(ExpectedConditions.visibilityOfElementLocated(ClosePopUpBtn)).click();
+//        } catch (TimeoutException e) {
+//            System.out.println("No popup appeared within 5 seconds.");
+//        }
+//    }
 
     public void selectCity(String city) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(CitySelector)).sendKeys(city);
@@ -60,5 +61,9 @@ public class HomePage {
 
     public void submitSearch() {
         driver.findElement(SearchBtn).click();
+    }
+
+    public String getSearchResult() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(SearchResultCount)).getText();
     }
 }

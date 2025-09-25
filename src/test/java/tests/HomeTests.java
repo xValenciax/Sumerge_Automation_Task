@@ -1,6 +1,7 @@
 package tests;
 
 import base.BaseTest;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import utils.TestDataProvider;
@@ -22,5 +23,7 @@ public class HomeTests extends BaseTest {
         homePage.openDatePicker();
         homePage.selectDate(CheckInDate.getYear(), CheckInDate.getMonthValue(), CheckInDate.getDayOfMonth(), CheckOutDate.getDayOfMonth());
         homePage.submitSearch();
+
+        Assert.assertTrue(homePage.getSearchResult().contains(Location), "Search result does not contain the location");
     }
 }
